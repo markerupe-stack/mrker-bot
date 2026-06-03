@@ -1,0 +1,123 @@
+index.html<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRƘ.ER Bot</title>
+
+<style>
+body{
+    background:#030712;
+    color:white;
+    font-family:Arial,sans-serif;
+    margin:0;
+    text-align:center;
+}
+
+.hero{
+    padding:80px 20px;
+}
+
+h1{
+    color:#00e5ff;
+    font-size:3rem;
+}
+
+.tagline{
+    color:#cbd5e1;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 30px;
+    margin:10px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.primary{
+    background:#00e5ff;
+    color:black;
+}
+
+.secondary{
+    border:2px solid #00e5ff;
+    color:#00e5ff;
+}
+
+.features{
+    padding:50px 20px;
+}
+
+.card{
+    background:#0f172a;
+    margin:10px auto;
+    padding:20px;
+    max-width:500px;
+    border-radius:12px;
+}
+
+footer{
+    margin-top:50px;
+    padding:30px;
+    background:#020617;
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+<h1>MRƘ.ER BOT</h1>
+
+<p class="tagline">
+Smart. Fast. Powerful. Your Ultimate WhatsApp Assistant.
+</p>
+
+<a class="btn primary" href="/pair">
+🚀 CONNECT WHATSAPP
+</a>
+
+<br>
+
+<a class="btn primary" href="https://wa.me/254118228984">
+📞 CONTACT OWNER
+</a>
+
+<a class="btn secondary" href="https://whatsapp.com/channel/0029VbCshmzBVJl4xKHHwN2o">
+📢 JOIN CHANNEL
+</a>
+
+</section>
+
+<section class="features">
+
+<h2>🚀 Features</h2>
+
+<div class="card">🤖 AI Auto Reply</div>
+<div class="card">👀 Auto Status View</div>
+<div class="card">❤️ Auto Status React</div>
+<div class="card">📹 YouTube Downloads</div>
+<div class="card">🎬 TikTok Downloads</div>
+<div class="card">🖼 Sticker Creation</div>
+<div class="card">👥 Group Management</div>
+<div class="card">👑 Admin Commands</div>
+<div class="card">📱 Multi-Device Support</div>
+<div class="card">⚡ Fast & Reliable</div>
+
+</section>
+
+<footer>
+
+<h3>MRƘ.ER BOT</h3>
+
+<p>Owner: MARK ERUPE</p>
+
+<p>WhatsApp: +254 118 228 984</p>
+
+</footer>
+
+</body>
+</html>

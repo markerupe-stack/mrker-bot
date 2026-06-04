@@ -1,0 +1,15 @@
+{
+  "name": "mrker-bot",
+  "version": "2.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.0",
+    "express": "^4.18.2",
+    "pino": "^8.0.0",
+    "dotenv": "^16.0.0",
+    "openai": "^4.0.0"
+  }
+}

@@ -1,11 +1,17 @@
 const express = require("express");
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require("@whiskeysockets/baileys");
+const fs = require("fs");
 const P = require("pino");
+const {
+    default: makeWASocket,
+    useMultiFileAuthState,
+    DisconnectReason,
+    fetchLatestBaileysVersion
+} = require("@whiskeysockets/baileys");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ===== Render keep-alive server =====
+// Keep Render alive
 app.get("/", (req, res) => {
     res.send("🤖 MRKER-BOT is running...");
 });
@@ -14,20 +20,33 @@ app.listen(PORT, () => {
     console.log("Server running on port", PORT);
 });
 
-// ===== WhatsApp Bot Start =====
+// Ensure auth folder exists
+if (!fs.existsSync("./auth")) {
+    fs.mkdirSync("./auth");
+}
+
 async function startBot() {
     const { state, saveCreds } = await useMultiFileAuthState("./auth");
+    const { version } = await fetchLatestBaileysVersion();
 
     const sock = makeWASocket({
+        version,
         auth: state,
-        logger: P({ level: "silent" }),
-        printQRInTerminal: true
+        logger: P({ level: "silent" })
     });
 
-    // Save login state
     sock.ev.on("creds.update", saveCreds);
 
-    // Connection handling
+    // 🔥 PAIRING CODE SYSTEM (NO QR)
+    if (!sock.authState.creds.registered) {
+        const phoneNumber = "2547XXXXXXXX"; // 👈 PUT YOUR NUMBER HERE (WITH COUNTRY CODE)
+
+        setTimeout(async () => {
+            const code = await sock.requestPairingCode(phoneNumber);
+            console.log("🔑 YOUR PAIRING CODE:", code);
+        }, 3000);
+    }
+
     sock.ev.on("connection.update", (update) => {
         const { connection, lastDisconnect } = update;
 
@@ -41,11 +60,10 @@ async function startBot() {
         }
 
         if (connection === "open") {
-            console.log("🤖 MRKER-BOT connected successfully!");
+            console.log("🤖 MRKER-BOT CONNECTED SUCCESSFULLY!");
         }
     });
 
-    // Message handler
     sock.ev.on("messages.upsert", async ({ messages }) => {
         const msg = messages[0];
         if (!msg.message || msg.key.fromMe) return;
@@ -57,16 +75,27 @@ async function startBot() {
             msg.message.extendedTextMessage?.text ||
             "";
 
-        console.log("Incoming:", text);
-
         if (!text) return;
 
-        // ===== Basic bot commands =====
+        console.log("Message:", text);
+
         if (text.toLowerCase() === "menu") {
             await sock.sendMessage(from, {
-                text: "🤖 MRKER-BOT MENU\n\n• hi - greet\n• menu - show this"
+                text: "🤖 MRKER-BOT MENU\n\n• hi\n• menu\n• ping"
             });
         } else if (text.toLowerCase() === "hi") {
+            await sock.sendMessage(from, {
+                text: "👋 Hello! MRKER-BOT is active"
+            });
+        } else {
+            await sock.sendMessage(from, {
+                text: "You said: " + text
+            });
+        }
+    });
+}
+
+startBot();        } else if (text.toLowerCase() === "hi") {
             await sock.sendMessage(from, {
                 text: "👋 Hello! I am MRKER-BOT"
             });
